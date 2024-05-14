@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.options-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #1e1e1e;
+  /* Match the Monaco Editor theme */
+}
+
+.language-select,
+.run-button {
+  padding: 8px 15px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007acc;
+  /* A nice blue */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.language-select {
+  background-color: #252526;
+  /* Slightly darker */
+}
+
+.run-button:hover {
+  background-color: #005ea6;
+  /* A bit darker on hover */
+}
+
+.language-select:hover {
+  background-color: #303031;
+  /* A bit darker on hover */
+}
+
+.output-container {
+
+  /* White background */
+  border: 1px solid transparent;
+  /* Subtle border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Soft shadow */
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  /* Rounded corners */
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+}
+
+.output-stdout {
+  color: #333;
+  /* Dark grey for standard output */
+}
+
+.output-stderr {
+  color: #d9534f;
+  /* Bootstrap's `btn-danger` color for errors */
+  font-weight: bold;
+}
+
+.success-indicator {
+  color: #5cb85c;
+  /* Bootstrap's `btn-success` color */
+}
+
+.error-indicator {
+  color: #d9534f;
+  /* Error color, as above */
+}
