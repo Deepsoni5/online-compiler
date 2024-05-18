@@ -6,17 +6,11 @@ import cors from "cors";
 import solc from "solc";
 import mo from "motoko";
 
-import path from "path";
-import { fileURLToPath } from "url";
-
 const app = express();
 const port = 3000;
 
-// Middleware
 app.use(bodyParser.json());
 app.use(cors());
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // decode :- this function compiles the motoko code and retunrns function
 async function executeMotoko(code) {
