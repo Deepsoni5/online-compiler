@@ -1,5 +1,3 @@
-// src/CodeEditor.js
-
 import { useState, useEffect } from "react";
 import MonacoEditor from "@monaco-editor/react"; // Ensure you're importing from the correct package
 
@@ -9,11 +7,12 @@ function CodeEditor() {
   const [output, setOutput] = useState("");
 
   const languageIds = {
-    javascript: 63, // Example ID for JavaScript
+    javascript: 63,
     python: 71,
     rust: 73,
-    solidity: 80, // Example ID for Python
-    // Add more mappings as needed
+    solidity: 80,
+    motoko: 81,
+    // Decode :- Add more mappings as needed
   };
 
   const handleLanguageChange = (event) => {
@@ -21,8 +20,7 @@ function CodeEditor() {
   };
   useEffect(() => {
     console.log("Editor mounted");
-    // Additional setup or cleanup could go here
-  }, []); // Empty array ensures this runs once on mount
+  }, []);
 
   const handleEditorChange = (newValue, e) => {
     console.log("onChange", { newValue, e });
@@ -30,7 +28,7 @@ function CodeEditor() {
   };
 
   const runCode = async () => {
-    const languageId = languageIds[language]; // Get the languageId based on the selected language
+    const languageId = languageIds[language]; // Decode :- Get the languageId based on the selected language
 
     try {
       const response = await fetch("http://localhost:3000/compile", {
@@ -38,16 +36,16 @@ function CodeEditor() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ languageId, code }), // Send languageId along with code
+        body: JSON.stringify({ languageId, code }), // Decode :- Send languageId along with code
       });
-      console.log(response);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
+      console.log(response);
       const data = await response.json();
-
-      data.stdout == null ? setOutput(data.stderr) : setOutput(data.stdout); // Assuming the backend returns an object with an 'output' field
+      console.log(data);
+      data.stdout == null ? setOutput(data.stderr) : setOutput(data.stdout);
     } catch (error) {
       console.error("Error:", error);
       setOutput(`Error: ${error.message}`);
@@ -67,7 +65,8 @@ function CodeEditor() {
             <option value="python">Python</option>
             <option value="rust">Rust</option>
             <option value="solidity">Solidity</option>
-            {/* Add more languages as needed */}
+            <option value="motoko">Motoko</option>
+            {/* Decode :- Add more languages as needed */}
           </select>
           <button
             onClick={runCode}
@@ -76,7 +75,7 @@ function CodeEditor() {
             Run
           </button>
         </div>
-        {/* Ensure the MonacoEditor component can be styled or accepts className prop for styling */}
+
         <MonacoEditor
           height="60vh"
           language={language}
@@ -84,15 +83,14 @@ function CodeEditor() {
           theme="vs-dark"
           onChange={handleEditorChange}
           options={{
-            automaticLayout: true, // This option helps with resizing
+            automaticLayout: true,
             fontSize: 18,
             autoClosingBrackets: true,
             autoprefixer: true,
-            // Set the font size to 18px, adjust as needed
-          }} // This option helps with resizing
+          }}
         />
       </div>
-      {/* Display the output below the editor */}
+
       <div className="output-container mt-4 p-4 bg-gray-900 text-white">
         <h3 className="output-title font-bold">Output:</h3>
         <pre>{output}</pre>
